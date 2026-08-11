@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="ja"><head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#fffaf0">
+  <meta name="description" content="大学2年生に向けた栗原ゼミ13期募集専用サイト。知識をつなぎ、自分で問い、自分で決める力を育てます。">
+  <title>栗原ゼミ13期募集専用サイト</title>
+  <style>
+    :root{
+      --paper:#fffaf0;
+      --paper-2:#fff4df;
+      --white:#fffdf8;
+      --ink:#172241;
+      --muted:#5d6780;
+      --line:rgba(23,34,65,.13);
+      --blue:#4169e8;
+      --blue-deep:#223f9f;
+      --orange:#ff7048;
+      --sun:#ffc857;
+      --mint:#57c7ad;
+      --lavender:#a58bfa;
+      --shadow:0 24px 70px rgba(45,62,114,.14);
+      --radius:30px;
+      --wrap:min(1160px,calc(100% - 48px));
+      --serif:"Yu Mincho","YuMincho","Hiragino Mincho ProN","Noto Serif JP",serif;
+      --sans:"Yu Gothic","YuGothic","Hiragino Kaku Gothic ProN","Noto Sans JP",system-ui,sans-serif;
+    }
+
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth;scroll-padding-top:92px}
+    body{
+      margin:0;
+      color:var(--ink);
+      background:
+        radial-gradient(circle at 8% 7%,rgba(255,200,87,.22),transparent 24rem),
+        radial-gradient(circle at 94% 18%,rgba(87,199,173,.14),transparent 28rem),
+        var(--paper);
+      font-family:var(--sans);
+      font-size:16px;
+      line-height:1.9;
+      letter-spacing:.035em;
+      overflow-x:hidden;
+    }
+
+    a{color:inherit;text-decoration:none}
+    img,svg{display:block;max-width:100%}
+    button,a{-webkit-tap-highlight-color:transparent}
+    .skip-link{position:fixed;top:8px;left:8px;z-index:9999;transform:translateY(-160%);padding:10px 16px;border-radius:999px;background:var(--ink);color:white}
+    .skip-link:focus{transform:none}
+    .wrap{width:var(--wrap);margin-inline:auto}
+    .page-shell{overflow:clip}
+    .progress{position:fixed;inset:0 auto auto 0;z-index:1000;width:0;height:3px;background:linear-gradient(90deg,var(--orange),var(--sun),var(--mint));box-shadow:0 0 14px rgba(255,112,72,.4)}
+
+    .site-header{
+      position:sticky;
+      top:0;
+      z-index:100;
+      border-bottom:1px solid rgba(23,34,65,.08);
+      background:rgba(255,250,240,.84);
+      backdrop-filter:blur(18px) saturate(130%);
+    }
+    .header-inner{min-height:72px;display:flex;align-items:center;justify-content:space-between;gap:24px}
+    .brand{display:flex;align-items:center;gap:12px;font-weight:800;letter-spacing:.12em;line-height:1.2}
+    .brand-mark{display:grid;place-items:center;width:34px;height:34px;border-radius:50%;background:var(--ink);color:var(--paper);font-family:var(--serif);font-size:13px;box-shadow:inset 0 0 0 5px rgba(255,255,255,.11)}
+    .brand small{display:block;margin-top:4px;color:var(--muted);font-size:9px;font-weight:700;letter-spacing:.18em}
+    .nav{display:flex;align-items:center;gap:25px;font-size:13px;font-weight:700}
+    .nav a:not(.nav-cta){position:relative}
+    .nav a:not(.nav-cta)::after{content:"";position:absolute;left:0;right:100%;bottom:-7px;height:2px;background:var(--orange);transition:right .25s ease}
+    .nav a:hover::after{right:0}
+    .nav-cta{padding:10px 17px;border-radius:999px;background:var(--ink);color:#fff;font-size:12px;box-shadow:0 8px 20px rgba(23,34,65,.16)}
+
+    .hero{position:relative;min-height:min(850px,calc(100svh - 72px));display:grid;align-items:center;padding:84px 0 92px}
+    .hero::before{content:"";position:absolute;width:420px;height:420px;left:-260px;bottom:-70px;border:1px solid rgba(65,105,232,.18);border-radius:50%;box-shadow:0 0 0 65px rgba(65,105,232,.035),0 0 0 130px rgba(65,105,232,.025)}
+    .hero-grid{position:relative;display:grid;grid-template-columns:minmax(0,1.08fr) minmax(430px,.92fr);align-items:center;gap:54px}
+    .hero-copy{position:relative;z-index:2}
+    .hero-kicker,.eyebrow{display:inline-flex;align-items:center;gap:10px;color:var(--blue-deep);font-size:12px;font-weight:800;letter-spacing:.18em;text-transform:uppercase}
+    .hero-kicker::before,.eyebrow::before{content:"";width:34px;height:2px;border-radius:2px;background:linear-gradient(90deg,var(--orange),var(--sun))}
+    .hero h1{margin:25px 0 24px;font-family:var(--serif);font-size:clamp(3.25rem,6.1vw,6.1rem);font-weight:700;line-height:1.15;letter-spacing:.015em}
+    .hero h1 .accent{position:relative;color:var(--blue)}
+    .hero h1 .accent::after{content:"";position:absolute;left:0;right:0;bottom:.04em;height:.16em;border-radius:100%;background:var(--sun);opacity:.62;z-index:-1;transform:rotate(-1.5deg)}
+    .hero-lead{max-width:670px;margin:0;color:#46516c;font-size:clamp(1rem,1.7vw,1.23rem);line-height:2}
+    .hero-lead b{color:var(--ink)}
+    .hero-actions{display:flex;flex-wrap:wrap;gap:14px;margin-top:35px}
+    .btn{display:inline-flex;align-items:center;justify-content:center;gap:12px;min-height:54px;padding:0 25px;border:1px solid var(--line);border-radius:999px;font-size:14px;font-weight:800;letter-spacing:.06em;transition:transform .25s ease,box-shadow .25s ease,background .25s ease}
+    .btn:hover{transform:translateY(-3px)}
+    .btn-primary{border-color:var(--blue);background:var(--blue);color:white;box-shadow:0 15px 35px rgba(65,105,232,.28)}
+    .btn-primary:hover{box-shadow:0 20px 44px rgba(65,105,232,.36)}
+    .btn-secondary{background:rgba(255,255,255,.58)}
+    .btn .arrow{font-size:18px;line-height:1}
+
+    .hero-photo{position:relative;isolation:isolate;min-height:560px;margin:0;border-radius:38px;box-shadow:0 28px 70px rgba(39,63,140,.2)}
+    .hero-photo::before{content:"";position:absolute;inset:-18px 18px 18px -18px;z-index:-1;border:1px solid rgba(65,105,232,.22);border-radius:42px}
+    .hero-photo::after{content:"";position:absolute;inset:auto -22px -24px 34%;z-index:-1;height:58%;border-radius:50%;background:radial-gradient(circle,rgba(255,200,87,.38),rgba(255,112,72,.08) 48%,transparent 70%);filter:blur(12px)}
+    .hero-photo img{width:100%;height:100%;min-height:560px;object-fit:cover;object-position:61% center;border-radius:38px;filter:saturate(.88) contrast(.97)}
+    .hero-photo figcaption{position:absolute;left:22px;right:22px;bottom:22px;display:flex;align-items:end;justify-content:space-between;gap:20px;padding:20px 22px;border:1px solid rgba(255,255,255,.44);border-radius:20px;background:rgba(20,31,60,.84);color:white;box-shadow:0 16px 36px rgba(15,25,54,.25);backdrop-filter:blur(12px)}
+    .hero-photo figcaption strong{display:block;font-family:var(--serif);font-size:19px;line-height:1.55}
+    .hero-photo figcaption span{display:block;margin-top:4px;color:#d6def4;font-size:10px;font-weight:800;letter-spacing:.12em}
+
+    section{position:relative;padding:120px 0}
+    .section-head{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:60px;align-items:end;margin-bottom:64px}
+    .section-head h2{margin:18px 0 0;font-family:var(--serif);font-size:clamp(2.4rem,4.7vw,4.5rem);line-height:1.3;letter-spacing:.02em}
+    .section-head p{margin:0;color:var(--muted);font-size:17px}
+    .section-head p b{color:var(--ink)}
+
+    .what{background:rgba(255,255,255,.46);border-block:1px solid rgba(23,34,65,.08)}
+    .transform-panel{position:relative;isolation:isolate;overflow:hidden;padding:clamp(34px,5.5vw,72px);border-radius:var(--radius);background:#213c9a;color:white;box-shadow:var(--shadow)}
+    .transform-panel::before{content:"";position:absolute;z-index:-1;inset:0;background:linear-gradient(105deg,rgba(20,39,113,.96) 0%,rgba(35,68,180,.88) 48%,rgba(65,105,232,.68) 100%)}
+    .transform-panel::after{content:"";position:absolute;z-index:-1;width:360px;height:360px;right:-130px;top:-190px;border:1px solid rgba(255,255,255,.22);border-radius:50%;box-shadow:0 0 0 50px rgba(255,255,255,.04),0 0 0 100px rgba(255,255,255,.03)}
+    .transform-video{position:absolute;z-index:-2;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;filter:saturate(.82) contrast(1.06);transform:scale(1.02)}
+    .transform-label{position:relative;color:#dbe5ff;font-size:12px;font-weight:800;letter-spacing:.18em;text-transform:uppercase}
+    .transform-panel h3{position:relative;max-width:850px;margin:17px 0 20px;font-family:var(--serif);font-size:clamp(2rem,4.3vw,4rem);line-height:1.35;text-shadow:0 2px 20px rgba(9,21,66,.28)}
+    .transform-panel h3 em{color:var(--sun);font-style:normal}
+    .transform-panel p{position:relative;max-width:780px;margin:0;color:#edf2ff;font-size:17px}
+    .definition{position:relative;display:inline-flex;align-items:center;gap:12px;margin-top:30px;padding:12px 18px;border:1px solid rgba(255,255,255,.24);border-radius:15px;background:rgba(255,255,255,.09);font-size:14px;font-weight:700}
+    .definition strong{color:var(--sun);font-family:var(--serif);font-size:18px}
+
+    .reality{display:grid;grid-template-columns:1fr auto 1fr;align-items:stretch;gap:18px;margin:20px 0 34px}
+    .reality-card{position:relative;padding:30px;border:1px solid var(--line);border-radius:24px;background:var(--white);box-shadow:0 14px 35px rgba(54,68,116,.08)}
+    .reality-card .tag{display:inline-block;margin-bottom:15px;color:var(--blue);font-size:11px;font-weight:900;letter-spacing:.14em}
+    .reality-card h4{margin:0 0 12px;font-family:var(--serif);font-size:23px;line-height:1.5}
+    .reality-card p{margin:0;color:var(--muted);font-size:14px}
+    .versus{display:grid;place-items:center;width:52px;color:var(--orange);font-family:var(--serif);font-weight:800}
+    .reality-note{display:grid;grid-template-columns:auto minmax(0,1fr);gap:26px;align-items:center;margin:38px 0 0;padding:30px 34px;border:1px solid rgba(255,112,72,.24);border-left:7px solid var(--orange);border-radius:0 24px 24px 0;background:linear-gradient(105deg,#fff4df 0%,rgba(255,255,255,.94) 62%,#eef3ff 100%);box-shadow:0 18px 45px rgba(54,68,116,.1)}
+    .reality-label{display:grid;place-items:center;width:104px;height:104px;border-radius:50%;background:var(--ink);color:var(--sun);font-size:10px;font-weight:900;letter-spacing:.12em;text-align:center}
+    .reality-title{display:block;margin-bottom:8px;color:var(--ink);font-family:var(--serif);font-size:clamp(1.45rem,2.7vw,2.35rem);line-height:1.45}
+    .reality-note p{margin:0;color:var(--muted);font-size:15px;line-height:1.9}
+    .reality-note p strong{color:var(--ink)}
+
+    .capacity-title{margin:82px 0 28px;font-family:var(--serif);font-size:clamp(1.8rem,3vw,2.7rem);text-align:center}
+    .capacities{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+    .capacity{min-height:215px;padding:26px;border:1px solid var(--line);border-radius:23px;background:rgba(255,255,255,.65);transition:transform .25s ease,border-color .25s ease,box-shadow .25s ease}
+    .capacity:hover{transform:translateY(-5px);border-color:rgba(65,105,232,.4);box-shadow:0 18px 42px rgba(54,68,116,.1)}
+    .capacity-num{display:flex;align-items:center;justify-content:space-between;color:var(--blue);font-size:11px;font-weight:900;letter-spacing:.15em}
+    .capacity-num i{display:block;width:28px;height:7px;border-radius:999px;background:var(--cap,var(--orange))}
+    .capacity h4{margin:19px 0 10px;font-family:var(--serif);font-size:21px}
+    .capacity p{margin:0;color:var(--muted);font-size:14px;line-height:1.85}
+    .capacity:nth-child(2){--cap:var(--sun)}.capacity:nth-child(3){--cap:var(--mint)}.capacity:nth-child(4){--cap:var(--lavender)}.capacity:nth-child(5){--cap:#ef5a8a}.capacity:nth-child(6){--cap:var(--blue)}
+    .manifesto{display:flex;flex-wrap:wrap;justify-content:center;gap:12px;margin-top:38px}
+    .manifesto span{padding:10px 16px;border-radius:999px;background:var(--ink);color:white;font-family:var(--serif);font-size:14px}
+    .manifesto span:nth-child(2){background:var(--blue)}
+    .manifesto span:nth-child(3){background:var(--orange)}
+
+    .learning{padding-bottom:58px;background:linear-gradient(180deg,#eef4ff 0%,#fffaf0 100%)}
+    .learning-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;align-items:stretch}
+    .learning-card{position:relative;overflow:hidden;display:flex;flex-direction:column;min-height:760px;padding:0 30px 32px;border:1px solid rgba(23,34,65,.11);border-radius:28px;background:rgba(255,255,255,.82);box-shadow:0 18px 50px rgba(48,65,123,.08)}
+    .learning-card::before{content:attr(data-year);position:absolute;right:-4px;top:-26px;color:rgba(65,105,232,.07);font-family:var(--serif);font-size:110px;font-weight:900;line-height:1}
+    .learning-card.featured{background:linear-gradient(165deg,#fff9ee,#fff0d6);border-color:rgba(255,112,72,.27);transform:translateY(-18px)}
+    .learning-card.after{background:linear-gradient(165deg,#f0fffb,#e1f7f0);border-color:rgba(87,199,173,.3)}
+    .learning-media{position:relative;height:235px;margin:0 -30px 26px;overflow:hidden;background:#e8edf7}
+    .learning-media::after{content:"";position:absolute;inset:45% 0 0;background:linear-gradient(180deg,transparent,rgba(15,27,57,.32))}
+    .learning-media img{width:100%;height:100%;object-fit:cover;transition:transform .7s cubic-bezier(.2,.65,.25,1)}
+    .learning-card:hover .learning-media img{transform:scale(1.035)}
+    .learning-media figcaption{position:absolute;z-index:2;right:18px;bottom:13px;color:#fff;font-size:9px;font-weight:800;letter-spacing:.13em;text-shadow:0 1px 8px rgba(0,0,0,.34)}
+    .year-pill{position:relative;align-self:flex-start;padding:7px 12px;border-radius:999px;background:var(--blue);color:white;font-size:10px;font-weight:900;letter-spacing:.14em}
+    .featured .year-pill{background:var(--orange)}
+    .after .year-pill{background:#218d78}
+    .learning-card h3{position:relative;margin:23px 0 8px;font-family:var(--serif);font-size:26px;line-height:1.45}
+    .learning-card .subtitle{position:relative;margin:0 0 22px;color:var(--blue-deep);font-size:14px;font-weight:800}
+    .learning-card ul{position:relative;display:grid;gap:14px;margin:0;padding:0;list-style:none}
+    .learning-card li{position:relative;padding-left:20px;color:#4e5872;font-size:14px;line-height:1.8}
+    .learning-card li::before{content:"";position:absolute;left:0;top:.75em;width:8px;height:8px;border:2px solid var(--orange);border-radius:50%}
+    .learning-story{position:relative;display:grid;gap:14px;color:#4e5872;font-size:14px;line-height:1.85}
+    .learning-story>p{margin:0}
+    .knowledge-links{display:grid;gap:8px}
+    .knowledge-links span{display:block;padding:10px 12px;border-left:2px solid var(--blue);border-radius:0 10px 10px 0;background:rgba(65,105,232,.055);font-family:var(--serif);font-size:13px;line-height:1.65}
+    .question-case{position:relative;padding:18px;border:1px solid rgba(255,112,72,.28);border-radius:17px;background:rgba(255,255,255,.55);color:#4e5872;font-size:14px;line-height:1.85}
+    .question-case .case-label{display:block;margin-bottom:10px;color:var(--orange);font-size:10px;font-weight:900;letter-spacing:.14em}
+    .question-case p{margin:0 0 12px}
+    .question-case strong{display:block;color:var(--ink);font-family:var(--serif);font-size:17px;line-height:1.65}
+    .learning-card .result{position:relative;margin:auto 0 0;padding-top:24px;border-top:1px solid var(--line);color:var(--ink);font-size:14px;font-weight:700}
+    .learning-card .result strong{color:var(--blue)}
+    .learning-card.featured .result strong{color:var(--orange)}
+    .learning-card.after .result strong{color:#218d78}
+    .preseminar{padding:30px 0 120px;background:var(--paper)}
+    .preseminar-panel{position:relative;isolation:isolate;overflow:hidden;padding:clamp(38px,5.5vw,66px);border:1px solid rgba(65,105,232,.2);border-radius:var(--radius);background:linear-gradient(135deg,#111b36 0%,#1b2d59 64%,#243b73 100%);color:#fff;box-shadow:0 28px 70px rgba(35,53,106,.18)}
+    .preseminar-panel::before{content:"";position:absolute;z-index:-1;width:440px;height:440px;right:-185px;top:-255px;border:1px solid rgba(255,255,255,.12);border-radius:50%;box-shadow:0 0 0 52px rgba(255,255,255,.028),0 0 0 104px rgba(255,255,255,.02)}
+    .preseminar-panel::after{content:"";position:absolute;z-index:-1;inset:auto -12% -38% 46%;height:68%;background:radial-gradient(circle,rgba(255,112,72,.18),transparent 67%);filter:blur(16px)}
+    .preseminar-head{display:grid;grid-template-columns:minmax(0,.9fr) minmax(340px,1.1fr);gap:54px;align-items:end}
+    .preseminar-label{display:inline-flex;align-items:center;gap:11px;color:var(--sun);font-size:11px;font-weight:900;letter-spacing:.17em;text-transform:uppercase}
+    .preseminar-label::before{content:"";width:34px;height:2px;border-radius:2px;background:linear-gradient(90deg,var(--orange),var(--sun))}
+    .preseminar-head h2{margin:18px 0 0;font-family:var(--serif);font-size:clamp(2.8rem,5vw,4.8rem);line-height:1.16;letter-spacing:.025em}
+    .preseminar-head h2 span{display:block;margin-top:12px;color:#dbe5ff;font-family:var(--sans);font-size:clamp(1rem,1.65vw,1.35rem);font-weight:700;line-height:1.6;letter-spacing:.08em}
+    .preseminar-intro{margin:0;color:#d7e0f2;font-size:16px;line-height:2}
+    .preseminar-intro strong{color:var(--sun)}
+    .preseminar-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:38px}
+    .preseminar-stat{position:relative;padding:23px 25px;border:1px solid rgba(255,255,255,.15);border-radius:20px;background:rgba(8,16,36,.38);backdrop-filter:blur(8px)}
+    .preseminar-stat span{display:block;margin-bottom:8px;color:#8fa8e5;font-size:10px;font-weight:900;letter-spacing:.15em}
+    .preseminar-stat strong{display:block;color:#fff6e7;font-family:var(--serif);font-size:clamp(1.55rem,2.7vw,2.2rem);line-height:1.35}
+    .preseminar-stat small{display:block;margin-top:6px;color:#aebbd6;font-size:12px}
+    .preseminar-body{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px}
+    .preseminar-copy{padding:30px;border:1px solid rgba(255,255,255,.13);border-radius:22px;background:rgba(255,255,255,.055)}
+    .preseminar-copy.is-accent{border-color:rgba(255,200,87,.25);background:linear-gradient(135deg,rgba(255,112,72,.12),rgba(255,200,87,.07))}
+    .preseminar-copy .step{display:block;margin-bottom:13px;color:var(--sun);font-size:10px;font-weight:900;letter-spacing:.16em}
+    .preseminar-copy h3{margin:0 0 13px;font-family:var(--serif);font-size:clamp(1.35rem,2.3vw,1.85rem);line-height:1.5}
+    .preseminar-copy p{margin:0;color:#cbd6eb;font-size:14px;line-height:2}
+    .preseminar-closing{position:relative;max-width:940px;margin:22px 0 0;padding:23px 26px 23px 30px;border-left:3px solid var(--sun);border-radius:0 17px 17px 0;background:rgba(255,255,255,.06);color:#fff5e2;font-family:var(--serif);font-size:clamp(1rem,1.75vw,1.25rem);font-weight:700;line-height:1.9}
+    .preseminar-closing strong{color:var(--sun)}
+    .fit{background:var(--white)}
+    .fit-statement{display:grid;grid-template-columns:.82fr 1.18fr;gap:42px;align-items:center;padding:clamp(30px,5vw,60px);border-radius:var(--radius);background:var(--ink);color:white;box-shadow:var(--shadow)}
+    .fit-statement .quote-mark{color:var(--sun);font-family:var(--serif);font-size:82px;line-height:.7}
+    .fit-statement h3{margin:15px 0 0;font-family:var(--serif);font-size:clamp(2rem,3vw,3.15rem);line-height:1.45}
+    .fit-statement h3 span{display:block}
+    .fit-statement p{margin:0;color:#ccd5ea}
+    .fit-statement p+p{margin-top:16px}
+    .fit-statement b{color:var(--sun)}
+    .leader-line{margin:50px auto 26px;text-align:center;font-family:var(--serif);font-size:clamp(1.9rem,3.5vw,3.1rem);line-height:1.5}
+    .leader-line span{color:var(--orange)}
+    .leader-note{max-width:820px;margin:0 auto 45px;color:var(--muted);text-align:center}
+    .comparison{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+    .type-card{padding:34px;border:1px solid var(--line);border-radius:26px;background:#f5f8ff}
+    .type-card.no{background:#f7f6f2}
+    .type-card h3{display:flex;align-items:center;gap:12px;margin:0 0 24px;font-family:var(--serif);font-size:25px}
+    .type-card h3::before{content:"";width:13px;height:13px;border-radius:50%;background:var(--mint);box-shadow:0 0 0 7px rgba(87,199,173,.15)}
+    .type-card.no h3::before{background:#aeb3bf;box-shadow:0 0 0 7px rgba(120,128,146,.11)}
+    .type-card ul{display:grid;gap:14px;margin:0;padding:0;list-style:none}
+    .type-card li{position:relative;padding-left:24px;color:#4c5771;font-size:14px}
+    .type-card li::before{content:"→";position:absolute;left:0;color:var(--blue);font-weight:900}
+    .type-card.no li::before{color:#8b92a1}
+    .fit-note{margin:25px 0 0;padding:20px 24px;border-left:4px solid var(--sun);border-radius:0 14px 14px 0;background:var(--paper-2);color:#58627a;font-size:14px}
+    .commitment-panel{margin-top:30px;padding:clamp(28px,4.5vw,50px);border:1px solid rgba(65,105,232,.16);border-radius:var(--radius);background:linear-gradient(135deg,#f7f9ff 0%,#fffaf0 54%,#fff0dc 100%);box-shadow:0 18px 46px rgba(54,68,116,.08)}
+    .commitment-kicker{color:var(--blue);font-size:10px;font-weight:900;letter-spacing:.16em}
+    .commitment-panel>h3{margin:10px 0 26px;font-family:var(--serif);font-size:clamp(1.8rem,3vw,2.7rem)}
+    .commitment-grid{display:grid;grid-template-columns:.8fr 1.2fr;gap:18px}
+    .commitment-card{padding:27px;border:1px solid var(--line);border-radius:22px;background:rgba(255,255,255,.78)}
+    .commitment-card .metric{display:block;margin-bottom:10px;color:var(--orange);font-family:var(--serif);font-size:clamp(1.45rem,2.2vw,2rem);font-weight:700}
+    .commitment-card h4{margin:0 0 12px;font-family:var(--serif);font-size:21px}
+    .commitment-card p{margin:0;color:#536079;font-size:14px;line-height:1.95}
+    .commitment-card p+p{margin-top:12px}
+    .commitment-examples{padding-top:12px;border-top:1px solid var(--line)}
+    .commitment-warning{margin:18px 0 0;padding:18px 21px;border-radius:16px;background:var(--ink);color:white;font-weight:700;line-height:1.8}
+
+    .selection{background:linear-gradient(180deg,#fffaf0 0%,#fff0dc 100%)}
+    .purity{position:relative;overflow:hidden;padding:clamp(36px,6vw,72px);border:1px solid rgba(255,112,72,.22);border-radius:var(--radius);background:var(--white);text-align:center;box-shadow:var(--shadow)}
+    .purity::before,.purity::after{content:"";position:absolute;border-radius:50%}
+    .purity::before{width:240px;height:240px;left:-110px;top:-130px;background:rgba(255,200,87,.18)}
+    .purity::after{width:280px;height:280px;right:-150px;bottom:-180px;background:rgba(65,105,232,.1)}
+    .purity .mini{position:relative;color:var(--orange);font-size:11px;font-weight:900;letter-spacing:.17em}
+    .formula{position:relative;display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:18px;margin:22px 0;font-family:var(--serif);font-size:clamp(1.65rem,4vw,3.35rem);font-weight:700;line-height:1.5}
+    .formula b{color:var(--blue)}
+    .formula i{color:var(--orange);font-style:normal}
+    .purity p{position:relative;max-width:760px;margin:0 auto;color:var(--muted)}
+    .schedule-title{margin:72px 0 28px;font-family:var(--serif);font-size:clamp(1.8rem,3vw,2.8rem);text-align:center}
+    .schedule{position:relative;display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+    .schedule::before{content:"";position:absolute;left:14%;right:14%;top:31px;height:2px;background:linear-gradient(90deg,var(--blue),var(--orange),var(--mint));opacity:.28}
+    .schedule-step{position:relative;padding:20px 25px 28px;border:1px solid var(--line);border-radius:24px;background:rgba(255,255,255,.75);text-align:center}
+    .step-num{position:relative;z-index:2;display:grid;place-items:center;width:62px;height:62px;margin:0 auto 18px;border:8px solid #fff4df;border-radius:50%;background:var(--blue);color:white;font-size:12px;font-weight:900;box-shadow:0 7px 20px rgba(65,105,232,.2)}
+    .schedule-step:nth-child(2) .step-num{background:var(--orange)}
+    .schedule-step:nth-child(3) .step-num{background:#218d78}
+    .schedule-step h4{margin:0 0 9px;font-family:var(--serif);font-size:21px}
+    .schedule-step p{margin:0;color:var(--muted);font-size:13px}
+    .selection-link{display:flex;justify-content:center;margin-top:35px}
+    .applicant-message{position:relative;isolation:isolate;overflow:hidden;margin-top:44px;padding:clamp(32px,5vw,60px);border:1px solid rgba(23,34,65,.12);border-radius:var(--radius);background:#172241;color:white;box-shadow:var(--shadow)}
+    .applicant-message::before{content:"";position:absolute;z-index:0;inset:-12px;background:linear-gradient(90deg,rgba(16,29,60,.9) 0%,rgba(20,34,68,.78) 48%,rgba(24,40,78,.6) 100%),url("assets/applicant-community-anonymized.png") center 46%/cover no-repeat;filter:blur(1.5px) saturate(.88);transform:scale(1.025)}
+    .applicant-message::after{content:"";position:absolute;z-index:0;width:260px;height:260px;right:-105px;bottom:-150px;border:1px solid rgba(255,255,255,.14);border-radius:50%;box-shadow:0 0 0 42px rgba(255,255,255,.035),0 0 0 84px rgba(255,255,255,.025)}
+    .applicant-message .message-kicker{position:relative;z-index:1;display:block;margin-bottom:14px;color:var(--sun);font-size:11px;font-weight:900;letter-spacing:.16em}
+    .applicant-message h3{position:relative;z-index:1;margin:0 0 22px;font-family:var(--serif);font-size:clamp(1.9rem,3.5vw,3rem)}
+    .applicant-message p{position:relative;z-index:1;max-width:920px;margin:0;color:#dbe2f4;font-size:15px;line-height:2}
+    .applicant-message p+p{margin-top:14px}
+    .applicant-message strong{color:white}
+    .applicant-message .applicant-highlight{color:var(--sun);font-size:1.08em;letter-spacing:.02em}
+
+    .selection-schedule{position:relative;overflow:hidden;padding:100px 0 108px;background:linear-gradient(180deg,#fffaf0 0%,#f4f7ff 100%)}
+    .selection-schedule::before{content:"";position:absolute;width:430px;height:430px;right:-250px;top:-190px;border:1px solid rgba(65,105,232,.15);border-radius:50%;box-shadow:0 0 0 62px rgba(65,105,232,.035),0 0 0 124px rgba(87,199,173,.025)}
+    .selection-schedule-head{position:relative;display:grid;grid-template-columns:minmax(0,.8fr) minmax(420px,1.2fr);align-items:end;gap:60px;margin-bottom:42px}
+    .selection-schedule-head h2{margin:14px 0 0;font-family:var(--serif);font-size:clamp(2.8rem,5.2vw,5rem);line-height:1.18}
+    .selection-schedule-head p{max-width:620px;margin:0;color:var(--muted);font-size:15px}
+    .selection-stats{position:relative;display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:20px}
+    .selection-stat{min-height:176px;padding:27px 29px;border:1px solid var(--line);border-radius:24px;background:rgba(255,253,248,.9);box-shadow:0 14px 40px rgba(45,62,114,.07)}
+    .selection-stat.is-highlight{border-color:rgba(65,105,232,.22);background:linear-gradient(140deg,#eef3ff 0%,#fffaf0 100%)}
+    .selection-stat .label{display:block;margin-bottom:13px;color:var(--orange);font-size:11px;font-weight:900;letter-spacing:.14em}
+    .selection-stat strong{display:block;font-family:var(--serif);font-size:clamp(1.55rem,2.4vw,2.25rem);line-height:1.35}
+    .selection-stat small{display:block;margin-top:10px;color:var(--muted);font-size:13px;line-height:1.75}
+    .selection-flow{position:relative;display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:20px}
+    .selection-flow-card{position:relative;overflow:hidden;min-height:285px;padding:31px 30px;border-radius:25px;background:var(--ink);color:white;box-shadow:0 18px 45px rgba(23,34,65,.15)}
+    .selection-flow-card::after{content:"";position:absolute;width:150px;height:150px;right:-85px;bottom:-90px;border:1px solid rgba(255,255,255,.12);border-radius:50%;box-shadow:0 0 0 30px rgba(255,255,255,.025)}
+    .selection-flow-card:nth-child(2){background:#1e3269}
+    .selection-flow-card:nth-child(3){background:#155c55}
+    .selection-flow-card .step{display:block;margin-bottom:28px;color:var(--sun);font-family:Georgia,serif;font-size:12px;font-weight:700;font-style:italic;letter-spacing:.14em}
+    .selection-flow-card h3{margin:0 0 17px;font-family:var(--serif);font-size:clamp(1.35rem,2vw,1.75rem)}
+    .selection-flow-card p{margin:0;color:#dbe2f4;font-size:14px;line-height:2}
+    .selection-contact{position:relative;margin:22px 0 0;padding:19px 22px 19px 62px;border:1px solid rgba(65,105,232,.13);border-radius:18px;background:rgba(255,255,255,.7);color:#59647c;font-size:13px;line-height:1.85}
+    .selection-contact::before{content:"i";position:absolute;left:22px;top:20px;display:grid;place-items:center;width:24px;height:24px;border-radius:50%;background:var(--blue);color:white;font-family:Georgia,serif;font-weight:700;font-style:italic}
+
+    footer{padding:33px 0 45px;border-top:1px solid var(--line);background:var(--white)}
+    .footer-inner{display:flex;justify-content:space-between;align-items:center;gap:20px;color:var(--muted);font-size:11px}
+    .footer-links{display:flex;gap:20px}
+    .footer-links a:hover{color:var(--blue)}
+
+    .reveal{opacity:0;transform:translateY(24px);transition:opacity .75s ease,transform .75s cubic-bezier(.2,.65,.25,1)}
+    .reveal.is-visible{opacity:1;transform:none}
+
+    @keyframes float{0%,100%{transform:translateY(0) rotate(-1deg)}50%{transform:translateY(-10px) rotate(1deg)}}
+    @keyframes spin{to{transform:rotate(360deg)}}
+
+    @media(max-width:980px){
+      :root{--wrap:min(100% - 36px,760px)}
+      .nav a:not(.nav-cta){display:none}
+      .hero{min-height:auto;padding:72px 0 90px}
+      .hero-grid{grid-template-columns:1fr;gap:54px}
+      .hero-copy{max-width:760px}
+      .hero-photo{width:min(760px,100%);min-height:440px;margin-inline:auto}
+      .hero-photo img{min-height:440px;max-height:560px;object-position:center 48%}
+      .section-head{grid-template-columns:1fr;gap:22px}
+      .section-head p{max-width:660px}
+      .capacities{grid-template-columns:repeat(2,1fr)}
+      .learning-grid{grid-template-columns:1fr}
+      .learning-card{min-height:0}
+      .learning-card.featured{transform:none}
+      .preseminar-head{grid-template-columns:1fr;gap:22px}
+      .fit-statement{grid-template-columns:1fr}
+      .selection-schedule-head{grid-template-columns:1fr;gap:20px}.selection-stats{grid-template-columns:1fr 1fr}.selection-stat:last-child{grid-column:1/-1}.selection-flow{grid-template-columns:1fr}
+    }
+
+    @media(max-width:700px){
+      :root{--wrap:calc(100% - 30px);--radius:24px}
+      body{font-size:15px;line-height:1.85}
+      html{scroll-padding-top:72px}
+      .header-inner{min-height:64px}
+      .brand{font-size:12px}.brand small{display:none}.brand-mark{width:30px;height:30px}
+      .nav{gap:0}.nav-cta{padding:9px 13px;font-size:10px}
+      .hero{padding:55px 0 72px}
+      .hero-grid{gap:44px}
+      .hero-kicker{font-size:10px;line-height:1.6}
+      .hero h1{margin:20px 0;font-size:clamp(2.55rem,13vw,4.1rem);line-height:1.2}
+      .hero-lead{font-size:15px;line-height:1.9}
+      .hero-actions{display:grid;grid-template-columns:1fr;margin-top:28px}
+      .btn{width:100%;min-height:51px;padding-inline:18px}
+      .hero-photo{width:100%;min-height:0;border-radius:25px}
+      .hero-photo::before{inset:-9px 9px 9px -9px;border-radius:28px}
+      .hero-photo img{min-height:0;height:auto;aspect-ratio:4/3;object-position:center 50%;border-radius:25px}
+      .hero-photo figcaption{left:13px;right:13px;bottom:13px;padding:14px 15px;border-radius:15px}
+      .hero-photo figcaption strong{font-size:15px}
+      section{padding:82px 0}
+      .section-head{margin-bottom:38px}
+      .section-head h2{font-size:clamp(2.2rem,10vw,3.2rem)}
+      .section-head p{font-size:14px}
+      .transform-panel{padding:30px 22px;border-radius:22px}
+      .transform-panel::before{background:linear-gradient(105deg,rgba(20,39,113,.96) 0%,rgba(35,68,180,.9) 62%,rgba(65,105,232,.78) 100%)}
+      .transform-video{display:none}
+      .transform-panel h3{font-size:clamp(1.8rem,9vw,2.7rem)}
+      .transform-panel p{font-size:14px}
+      .definition{display:flex;align-items:flex-start;flex-direction:column;gap:2px;width:100%}
+      .reality-note{grid-template-columns:1fr;gap:17px;margin-top:26px;padding:24px 20px}.reality-label{width:auto;height:auto;display:inline-flex;justify-self:start;padding:8px 13px;border-radius:999px}.reality-title{font-size:1.65rem}.reality-note p{font-size:13px}.reality{grid-template-columns:1fr;gap:12px}.versus{width:auto;height:26px}.reality-card{padding:23px}
+      .capacity-title{margin-top:58px;text-align:left}
+      .capacities{grid-template-columns:1fr}.capacity{min-height:0;padding:23px}
+      .manifesto{justify-content:flex-start}.manifesto span{font-size:12px}
+      .learning-card{padding:0 23px 27px;border-radius:23px}.learning-card::before{font-size:82px}
+      .learning-media{height:auto;aspect-ratio:4/3;margin:0 -23px 23px}.learning-media figcaption{right:14px}
+      .preseminar{padding:18px 0 82px}.preseminar-panel{padding:30px 22px;border-radius:23px}.preseminar-head h2{font-size:2.75rem}.preseminar-intro{font-size:14px}.preseminar-stats{grid-template-columns:1fr;gap:10px;margin-top:28px}.preseminar-stat{padding:19px 20px}.preseminar-body{grid-template-columns:1fr}.preseminar-copy{padding:24px 21px}.preseminar-copy p{font-size:13px}.preseminar-closing{padding:20px 18px 20px 22px;font-size:15px}
+      .fit-statement{padding:30px 24px;border-radius:23px}.fit-statement .quote-mark{font-size:55px}.fit-statement h3{font-size:2rem}.fit-statement p{font-size:14px}
+      .leader-line{text-align:left}.leader-note{text-align:left;font-size:14px}
+      .comparison{grid-template-columns:1fr}.type-card{padding:27px 23px}
+      .commitment-panel{padding:28px 20px}.commitment-grid{grid-template-columns:1fr}.commitment-card{padding:23px 20px}.commitment-warning{font-size:14px}
+      .purity{padding:35px 22px}.formula{display:grid;gap:7px}.formula .op{font-size:1.25rem}.purity p{font-size:14px}
+      .schedule{grid-template-columns:1fr}.schedule::before{display:none}.schedule-step{display:grid;grid-template-columns:58px 1fr;column-gap:15px;text-align:left}.step-num{grid-row:1/3;width:52px;height:52px;margin:0;border-width:6px}.schedule-step h4{align-self:end}.schedule-step p{grid-column:2}.applicant-message{padding:30px 22px}.applicant-message p{font-size:14px}
+      .selection-schedule{padding:72px 0 78px}.selection-schedule-head{margin-bottom:30px}.selection-schedule-head h2{font-size:2.85rem}.selection-stats{grid-template-columns:1fr}.selection-stat:last-child{grid-column:auto}.selection-stat{min-height:0;padding:23px 21px}.selection-flow-card{min-height:0;padding:27px 23px}.selection-contact{padding:18px 18px 18px 55px}.selection-contact::before{left:18px}
+      .footer-inner{align-items:flex-start;flex-direction:column}.footer-links{flex-wrap:wrap;gap:10px 16px}
+    }
+
+    @media(prefers-reduced-motion:reduce){
+      html{scroll-behavior:auto}
+      *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+      .reveal{opacity:1;transform:none}
+      .transform-video{display:none}
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">本文へ移動</a>
+  <div class="progress" id="progress" aria-hidden="true" style="width: 75.2125%;"></div>
+  <div class="page-shell">
+    <header class="site-header">
+      <div class="header-inner wrap">
+        <a class="brand" href="#top" aria-label="ページ上部へ">
+          <span class="brand-mark">13</span>
+          <span>KURIHARA SEMINAR<small>FOR SECOND-YEAR STUDENTS</small></span>
+        </a>
+        <nav class="nav" aria-label="ページ内ナビゲーション">
+          <a href="#what">このゼミについて</a>
+          <a href="#learning">実際の学び</a>
+          <a href="#fit">向いている人</a>
+          <a class="nav-cta" href="#selection">選考の考え方</a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main">
+      <section class="hero" id="top">
+        <div class="hero-grid wrap">
+          <div class="hero-copy reveal">
+            <span class="hero-kicker">SEMINAR SELECTION IN NOVEMBER / 大学2年生へ</span>
+            <h1>栗原ゼミ13期<br><span class="accent">募集専用サイト</span></h1>
+            <p class="hero-lead">大学で学んだ知識をつなぎ、現実を考えるための<b>「使える力」</b>へ。栗原ゼミは、自分で問い、自分で決め、自分の未来をひらきたい人のためのゼミです。</p>
+            <div class="hero-actions">
+              <a class="btn btn-primary" href="#what">このゼミを知る <span class="arrow">↓</span></a>
+              <a class="btn btn-secondary" href="#fit">自分に合うか考える <span class="arrow">→</span></a>
+            </div>
+          </div>
+
+          <figure class="hero-photo reveal">
+            <img src="assets/student-lp/hero-seminar.webp" width="1736" height="906" alt="明るいゼミ室で議論する大学生たち" fetchpriority="high" decoding="async">
+            <figcaption>
+              <span><strong>考え、議論し、決断する。</strong>学びを自分の力に変える場所。</span>
+            </figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <section class="what" id="what">
+        <div class="wrap">
+          <header class="section-head reveal">
+            <div>
+              <span class="eyebrow">01 / OUR PURPOSE</span>
+              <h2>このゼミが<br>やろうとしていること</h2>
+            </div>
+            <p>大学の教養科目や専門科目で学んだ知識をつなぎ合わせ、現実の企業や社会が抱える問題を考えるための<b>「使える力」</b>に変えます。</p>
+          </header>
+
+          <div class="transform-panel reveal">
+            <video class="transform-video" autoplay="" muted="" loop="" playsinline="" preload="metadata" aria-hidden="true">
+              <source src="assets/knowledge-in-motion.mp4" type="video/mp4" media="(min-width: 641px)">
+            </video>
+            <span class="transform-label">FROM STATIC KNOWLEDGE TO LIVING KNOWLEDGE</span>
+            <h3>知識を「持っている」から、<br><em>使える状態へイノベートする</em>。</h3>
+            <p>大学教育を否定するのではありません。これまで学んできたことに新しい価値を与え、知識が現実の中で働き始める状態をつくります。</p>
+            <div class="definition"><strong>知識の動態化</strong><span>知識と知識がつながり、現実を考える力へ変わること</span></div>
+          </div>
+
+          <aside class="reality-note reveal">
+            <span class="reality-label">NO SINGLE<br>ANSWER</span>
+            <div>
+              <strong class="reality-title">前提が変われば答えが変わる。</strong>
+              <p><strong>正解のない問題とは、正解が１つではない問題のこと。</strong>現実には、こうした問題がたくさんあります。例えば、次の二つはどちらも正解です。違うのは前提。自分なりの答えを決めるには、<strong>「自分の判断軸」</strong>が必要です。</p>
+            </div>
+          </aside>
+
+          <div class="reality reveal">
+            <article class="reality-card">
+              <span class="tag">VIEWPOINT A</span>
+              <h4>「若い感性は二度と戻らない。だから、目いっぱい遊ぶ方がよい」</h4>
+              <p>今しかできない経験を重視する考え方。</p>
+            </article>
+            <div class="versus">OR</div>
+            <article class="reality-card">
+              <span class="tag">VIEWPOINT B</span>
+              <h4>「大学時代は将来の土台になる。だから、目いっぱい勉強する方がよい」</h4>
+              <p>未来につながる準備を重視する考え方。</p>
+            </article>
+          </div>
+          <h3 class="capacity-title reveal">現実を考えるために、鍛える力。</h3>
+          <div class="capacities">
+            <article class="capacity reveal"><div class="capacity-num">01 / READ<i></i></div><h4>背景を読む</h4><p>現象の背後にある前提やメカニズムを読み解く。</p></article>
+            <article class="capacity reveal"><div class="capacity-num">02 / ASK<i></i></div><h4>問いを見つける</h4><p>本当に問題とすべきポイントは何かを考える。</p></article>
+            <article class="capacity reveal"><div class="capacity-num">03 / CONNECT<i></i></div><h4>知識をつなぐ</h4><p>分野を越えて、学んだ知識を総動員する。</p></article>
+            <article class="capacity reveal"><div class="capacity-num">04 / CREATE<i></i></div><h4>答えを組み立てる</h4><p>自分なりの答えや解決策を形にする。</p></article>
+            <article class="capacity reveal"><div class="capacity-num">05 / EXPRESS<i></i></div><h4>言葉にする</h4><p>自分の考えを、他者に伝わる形で表現する。</p></article>
+            <article class="capacity reveal"><div class="capacity-num">06 / DECIDE<i></i></div><h4>自分で決める</h4><p>最後は、自分の判断軸で選び、結果を引き受ける。</p></article>
+          </div>
+          <div class="manifesto reveal"><span>知るから、使うへ。</span><span>答えるから、問うへ。</span><span>正解を探すから、自分で決めるへ。</span></div>
+        </div>
+      </section>
+
+      <section class="learning" id="learning">
+        <div class="wrap">
+          <header class="section-head reveal">
+            <div>
+              <span class="eyebrow">02 / LEARNING JOURNEY</span>
+              <h2>実際に<br>何をするのか</h2>
+            </div>
+            <p>3年次は知識をつなぎ、4年次は自分の答えをつくる。希望者は卒業後も、現実の中で学びを試し、更新していきます。</p>
+          </header>
+
+          <div class="learning-grid">
+            <article class="learning-card reveal" data-year="3">
+              <figure class="learning-media"><img src="assets/student-lp/year3-company-analysis.webp" width="1122" height="1402" alt="企業資料を囲んで分析する大学生たち" loading="lazy" decoding="async"><figcaption>READ THE COMPANY / YEAR 3</figcaption></figure>
+              <span class="year-pill">YEAR 3 / 3年次</span>
+              <h3>知識をつなぎ、<br>企業を読み解く</h3>
+              <p class="subtitle">知識の動態化を目指す</p>
+              <div class="learning-story">
+                <p>知識を覚えるだけでなく、現実の企業を考えるための<strong>道具として使う</strong>訓練を行います。</p>
+                <div class="knowledge-links" aria-label="科目を超えて知識がつながる例">
+                  <span>「経営の範囲だけれど、会計学でも出てきた」</span>
+                  <span>「社会学の知識で考えた方がよいかもしれない」</span>
+                  <span>「法律のあの論点と対立しないだろうか」</span>
+                </div>
+              </div>
+              <p class="result">具体的な事例をきっかけに、科目を超えて<strong>知識と知識がつながり始めます。</strong></p>
+            </article>
+
+            <article class="learning-card featured reveal" data-year="4">
+              <figure class="learning-media"><img src="assets/student-lp/year4-open-question.webp" width="1122" height="1402" alt="ホワイトボードを使って正解のない問いを議論する大学生たち" loading="lazy" decoding="async"><figcaption>CREATE YOUR ANSWER / YEAR 4</figcaption></figure>
+              <span class="year-pill">YEAR 4 / 4年次</span>
+              <h3>正解のない問いに、<br>自分の答えをつくる</h3>
+              <p class="subtitle">根拠のある判断を目指す</p>
+              <div class="question-case">
+                <span class="case-label">CASE / 良い企業とは？</span>
+                <p>利益を生み、従業員に高い給与を払える。一方で、能力が社内業務に合わせて育つため、転職時には苦しむことになる企業経営。</p>
+                <strong>この経営は「良い経営」だろうか。</strong>
+              </div>
+              <p class="result">動態化した知識から答えを導き、根拠をもって<strong>「これが自分の判断だ」</strong>と納得できることを目指します。</p>
+            </article>
+
+            <article class="learning-card after reveal" data-year="∞">
+              <figure class="learning-media"><img src="assets/student-lp/after-alumni.webp" width="1122" height="1402" alt="卒業後に集まり経験を共有する若手社会人たち" loading="lazy" decoding="async"><figcaption>KEEP LEARNING / ALUMNI</figcaption></figure>
+              <span class="year-pill">AFTER / 希望者は卒業後</span>
+              <h3>学びを現実で試し、<br>更新する</h3>
+              <p class="subtitle">栗原ゼミアルムナイ</p>
+              <ul>
+                <li>仕事や社会で直面した課題を持ち寄る</li>
+                <li>卒業生同士で対話し、異なる経験から学ぶ</li>
+                <li>勉強会を通じて、自分の判断軸を更新する</li>
+                <li>仲間の挑戦を支え、自分も新しい挑戦を続ける</li>
+              </ul>
+              <p class="result">参加は任意。学び続けたい人のために、卒業後も<strong>学びの場</strong>を用意しています。</p>
+            </article>
+          </div>
+
+        </div>
+      </section>
+
+      <section class="preseminar" id="preseminar" aria-labelledby="preseminar-title">
+        <div class="wrap">
+          <div class="preseminar-panel reveal">
+            <header class="preseminar-head">
+              <div>
+          <span class="preseminar-label">PRE-SEMINAR / コンセプト＆チームビルディング</span>
+                <h2 id="preseminar-title">プレゼミ<span>学びの前に、チームをつくる。</span></h2>
+              </div>
+              <p class="preseminar-intro">栗原ゼミでは、正式な活動が始まる前に「プレゼミ」を行います。<strong>原則として、このプレゼミへの参加は必須</strong>です。同期全員で、2年間の学びを始めるための土台をつくります。</p>
+            </header>
+
+            <div class="preseminar-stats" aria-label="プレゼミの概要">
+              <article class="preseminar-stat"><span>PERIOD / 実施時期</span><strong>2月–3月</strong><small>正式なゼミ活動が始まる前</small></article>
+              <article class="preseminar-stat"><span>PROGRAM / 実施回数</span><strong>全5回</strong><small>合宿を含めて実施</small></article>
+              <article class="preseminar-stat"><span>PARTICIPATION / 参加</span><strong>原則必須</strong><small>同期全員で土台をつくる</small></article>
+            </div>
+
+            <div class="preseminar-body">
+              <article class="preseminar-copy">
+                <span class="step">STEP 01 / LEARNING CONCEPT</span>
+                <h3>これから学ぶことを、仲間と考える</h3>
+                <p>問題解決能力や課題設定力、分析、価値観と判断力、AI時代に経営を学ぶ意味など、栗原ゼミでこれから何を学び、どんな力を身につけていくのかを、資料と仲間との議論を通して考えていきます。</p>
+              </article>
+              <article class="preseminar-copy is-accent">
+                <span class="step">STEP 02 / TEAM BUILDING</span>
+                <h3>理想のゼミを、自分たちで決める</h3>
+                <p>「どんな仲間・チームでありたいか」「自分はその中でどんな役割を果たすのか」を考え、最後にはゼミ生自身で、理想とするゼミの姿や行動原則を決めていきます。</p>
+              </article>
+            </div>
+
+            <p class="preseminar-closing">2年間、自分たちはどのようなゼミでありたいのか。<strong>コンセプトをつくり、その学びを支える「チーム」を自分たちでつくる。</strong>それがプレゼミです。</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="fit" id="fit">
+        <div class="wrap">
+          <header class="section-head reveal">
+            <div>
+              <span class="eyebrow">03 / WHO THIS IS FOR</span>
+              <h2>ゼミ選考の<br>考え方</h2>
+            </div>
+            <p>目指すのは「優秀な学生を集めること」ではなく、<b>栗原ゼミという環境を本当に使いたい人</b>と出会うことです。</p>
+          </header>
+
+          <div class="fit-statement reveal">
+            <div><div class="quote-mark">“</div><h3><span>本当に栗原ゼミを</span><span>自分は求めているか</span></h3></div>
+            <div>
+              <p>教員である栗原にとって、志望者が優秀であるかは問題ではありません。重要なのは、<b>志望者が栗原ゼミを使いこなせるか</b>どうかです。</p>
+              <p>ゼミの目的や学び方を理解し、「自分が求める学びと合っている」「この環境を使いたい」と納得したうえで選んでいるかを重視します。</p>
+              <p><b>栗原ゼミを使い、同時に他のゼミ生のために、ゼミをより良い環境にする覚悟があるか。</b>そこまで含めて、適合性を見ています。</p>
+            </div>
+          </div>
+
+          <h3 class="leader-line reveal">育てたいのは、リーダーではなく<br><span>「リーダーになれる人」</span></h3>
+          <p class="leader-note reveal">リーダーに「なれる」は能力の問題。<br>「なりたい」は、本人の意思と環境の問題です。<br>必要な場面で状況を読み、自分で考え、自分で決め、その行動と結果を引き受けられる能力を育てます。</p>
+
+          <div class="comparison">
+            <article class="type-card reveal">
+              <h3>合いやすい人</h3>
+              <ul>
+                <li>誰かに決めてもらわず、自分で考えて選びたい</li>
+                <li>与えられた問題だけでなく、何が問題かを考えたい</li>
+                <li>異なる意見に触れ、自分の判断軸をつくりたい</li>
+                <li>自分で決めて行動するための「翼」がほしい</li>
+                <li>必要な場面では、自分が一歩前に出られるようになりたい</li>
+              </ul>
+            </article>
+            <article class="type-card no reveal">
+              <h3>合いにくい人</h3>
+              <ul>
+                <li>課題や手順を、いつも細かく指示してほしい</li>
+                <li>言われたことを正確にこなす学びを中心にしたい</li>
+                <li>自分で問うより、用意された正解を教えてほしい</li>
+                <li>自分の判断より、誰かの判断に従う方が安心できる</li>
+              </ul>
+            </article>
+          </div>
+          <p class="fit-note reveal">これは能力や人間性の優劣ではなく、学び方のタイプと環境との適合性の問題です。教育の目的が明確だからこそ、栗原ゼミは万人向けではありません。</p>
+
+          <div class="commitment-panel reveal">
+            <span class="commitment-kicker">BEFORE YOU APPLY</span>
+            <h3>栗原ゼミで学ぶということ</h3>
+            <div class="commitment-grid">
+              <article class="commitment-card">
+                <span class="metric">週2コマ・180分</span>
+                <h4>前後期で、年間60コマ</h4>
+                <p>栗原ゼミでは、基本的に週2コマ（180分）のゼミを行います。「あと何回なら休める」といった通常の授業感覚で参加するつもりなら、学びの流れから取り残されてしまうと思います。</p>
+              </article>
+              <article class="commitment-card">
+                <span class="metric">活動は「創り出す」という文化がある</span>
+                <h4>教員から与えられた活動ではありません</h4>
+                <p>ゼミで出会った仲間同士、または個人で、主体的な活動を行うことがあります。これらは有志による活動であり、栗原ゼミの運営とは関係ありません。</p>
+                <p class="commitment-examples">過去には、起業（3件）、フォロワー10数万人のインフルエンサー、アプリ開発、企業説明会の開催、日立市と連携した地域活性化事業などが生まれました。重要なのは、すべて自分たちで考え、企画したものであることです。</p>
+              </article>
+            </div>
+            <p class="commitment-warning">受け身の人、最低限の負担で単位を取りたい人にとっては、居心地のよいゼミではないと思います。</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="selection" id="selection">
+        <div class="wrap">
+          <header class="section-head reveal is-visible">
+            <div>
+              <span class="eyebrow">04 / SELECTION</span>
+              <h2>選考で<br>見ていること</h2>
+            </div>
+            <p>ゼミの内容を理解し、<b>このゼミが自分には必要だと説明できるか</b>を見ます。</p>
+          </header>
+
+          <div class="purity reveal is-visible">
+            <span class="mini">THE MOST IMPORTANT POINT</span>
+            <div class="formula"><b>志望純度</b><span class="op">＝</span><span>ゼミとの適合性</span><i>×</i><span>学ぶ意欲</span></div>
+          </div>
+
+          <h3 class="schedule-title reveal is-visible">選考までの流れ</h3>
+          <div class="schedule">
+            <article class="schedule-step reveal is-visible"><span class="step-num">01</span><h4>ゼミのことを「本当に知っているか」</h4><p>栗原ゼミを知るために十分な情報収集をしているか。</p></article>
+            <article class="schedule-step reveal is-visible"><span class="step-num">02</span><h4>自分で徹底的に考える</h4><p>自分はなぜ栗原ゼミを希望するのか。その理由を徹底的に考える。</p></article>
+            <article class="schedule-step reveal is-visible"><span class="step-num">03</span><h4>説明・証明する</h4><p>面談や志望理由書で、自分の言葉と態度で説明する。本気度をどのように証明するか。</p></article>
+          </div>
+
+          <aside class="applicant-message reveal is-visible">
+            <span class="message-kicker">TO EVERY APPLICANT</span>
+            <h3>志望者の皆さんへ</h3>
+            <p>厳しいことを書きましたが、私の願いはただ一つ、皆さんに<strong class="applicant-highlight">楽しいゼミ生活を送ってほしい</strong>ということです。しっかりと情報を提供し、フィルターをかけ、ゼミに入った後に「こんなはずじゃなかった」というミスマッチを減らしたいと思っています。</p>
+            <p>このフィルターを抜け、栗原ゼミに興味をもってくれた方へ。<br>栗原ゼミは<strong>「厳しいけど、楽しい、自分の成長が目に見えてわかるゼミ」</strong>だと思います。<br>年度の差はあれ、良く遊び、良く学ぶ、笑顔が絶えないゼミです。本学に来て良かったという実感の持てるゼミ活動に、一緒にしましょう。<br>心を許せる仲間をつくれるゼミにしましょう。</p>
+            <p>栗原ゼミは<strong>「与えられる学びではなく、皆さんが当事者として創る学びの場」</strong>です。ゼミの教育方針、カリキュラムはありますが、自由な余白部分もたくさんあります。私のゼミを志望してくれるなら、ゼミに積極的に関わる気持ちを持って志望してください。</p>
+          </aside>
+
+          <div class="selection-link reveal is-visible"><a class="btn btn-secondary" href="index-v3-position-reordered.html#alumni">栗原ゼミを深く知る <span class="arrow">↗</span></a></div>
+        </div>
+      </section>
+
+      <section class="selection-schedule" id="schedule">
+        <div class="wrap">
+          <header class="selection-schedule-head reveal">
+            <div>
+              <span class="eyebrow">SELECTION SCHEDULE</span>
+              <h2>選考スケジュール</h2>
+            </div>
+            <p>栗原ゼミを知り、自分との適合性を考えたうえで、面談へ進む流れです。日程や申込方法の詳細は、授業内の説明とオープンチャットで案内します。</p>
+          </header>
+
+          <div class="selection-stats reveal">
+            <article class="selection-stat">
+              <span class="label">募集時期</span>
+              <strong>例年 11–12月頃</strong>
+              <small>翌年4月 入ゼミ</small>
+            </article>
+            <article class="selection-stat">
+              <span class="label">受け入れ</span>
+              <strong>8名 程度</strong>
+              <small>少人数・深い対話を重視</small>
+            </article>
+            <article class="selection-stat is-highlight">
+              <span class="label">12期（2026年4月）実績</span>
+              <strong>入ゼミ 12名</strong>
+              <small>目安倍率 約2倍（最終エントリーに至らなかった辞退者を含む）</small>
+            </article>
+          </div>
+
+          <div class="selection-flow reveal">
+            <article class="selection-flow-card">
+              <span class="step">Step 01</span>
+              <h3>ゼミ説明と質問</h3>
+              <p>11月頃、財務会計論Ⅱの授業内で説明します。興味を持ったら、配布資料のQRからオープンチャットに登録してください。</p>
+            </article>
+            <article class="selection-flow-card">
+              <span class="step">Step 02</span>
+              <h3>ゼミ見学と質問</h3>
+              <p>月曜の3・4限（4年）／5・6限（3年）。内容的には5・6限がより参考になります。先輩の様子もぜひ見に来てください。</p>
+            </article>
+            <article class="selection-flow-card">
+              <span class="step">Step 03</span>
+              <h3>個別面談</h3>
+              <p>エントリー希望者は予約制（先着）で面談します。対面・オンライン・集団形式のいずれかで、志望純度を確認します。</p>
+            </article>
+          </div>
+
+          <p class="selection-contact reveal">※ 連絡は原則オープンチャットに一元化。メールでの個別対応は行いません（プライベートな事情を除く）。</p>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="footer-inner wrap">
+        <span>茨城キリスト教大学 経営学部 経営学科｜栗原ゼミ</span>
+        <div class="footer-links"><a href="index-v3-position-reordered.html">総合サイト</a><a href="index-v3-position-reordered.html#program">教育プログラム</a><a href="index-v3-position-reordered.html#selection">ゼミ選考</a></div>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    (() => {
+      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const reveals = document.querySelectorAll('.reveal');
+      if (reduceMotion || !('IntersectionObserver' in window)) {
+        reveals.forEach(el => el.classList.add('is-visible'));
+      } else {
+        const observer = new IntersectionObserver(entries => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('is-visible');
+              observer.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.08, rootMargin: '0px 0px -6% 0px' });
+        reveals.forEach(el => observer.observe(el));
+      }
+
+      const progress = document.getElementById('progress');
+      const updateProgress = () => {
+        const max = document.documentElement.scrollHeight - window.innerHeight;
+        const percent = max > 0 ? (window.scrollY / max) * 100 : 0;
+        progress.style.width = `${Math.min(100, Math.max(0, percent))}%`;
+      };
+      updateProgress();
+      window.addEventListener('scroll', updateProgress, { passive: true });
+      window.addEventListener('resize', updateProgress);
+    })();
+  </script>
+
+
+</body><div id="codex-browser-sidebar-comments-root" style="position: fixed; inset: 0px; pointer-events: none; z-index: 2147483647;"></div></html>
