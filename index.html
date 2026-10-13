@@ -249,6 +249,23 @@
     .schedule-step h4{margin:0 0 9px;font-family:var(--serif);font-size:21px}
     .schedule-step p{margin:0;color:var(--muted);font-size:13px}
     .selection-link{display:flex;justify-content:center;margin-top:35px}
+    .before-apply{margin-top:44px;padding:clamp(28px,4.5vw,50px);border:1px solid rgba(255,112,72,.24);border-radius:var(--radius);background:linear-gradient(135deg,#fffdf8 0%,#fff8ea 100%);box-shadow:0 18px 46px rgba(54,68,116,.08)}
+    .before-apply .eyebrow{color:var(--blue-deep);font-size:11px}
+    .before-apply>h3{margin:17px 0 18px;font-family:var(--serif);font-size:clamp(1.65rem,3vw,2.65rem);line-height:1.5;letter-spacing:.02em}
+    .before-apply>h3 span{color:var(--blue)}
+    .before-apply-lead{max-width:920px;margin:0;color:var(--muted);font-size:15px;line-height:2}
+    .before-apply strong{color:var(--ink)}
+    .before-apply-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;margin-top:28px}
+    .before-apply-card{padding:27px;border:1px solid var(--line);border-radius:22px;background:rgba(255,255,255,.8)}
+    .before-apply-card.is-open{border-color:rgba(87,199,173,.3);background:linear-gradient(155deg,#f0fffb,#f9fffc)}
+    .before-apply-step{display:block;margin-bottom:16px;color:var(--blue);font-family:Georgia,serif;font-size:11px;font-weight:700;font-style:italic;letter-spacing:.12em}
+    .is-open .before-apply-step{color:#21806d}
+    .before-apply-card h4{margin:0 0 15px;font-family:var(--serif);font-size:22px;line-height:1.5}
+    .before-apply-card p{margin:0;color:var(--muted);font-size:14px;line-height:1.95}
+    .before-apply-card p+p{margin-top:13px}
+    .before-apply-card ul{display:grid;gap:10px;margin:0 0 17px;padding:0;list-style:none}
+    .before-apply-card li{position:relative;padding-left:19px;color:var(--ink);font-size:14px;line-height:1.8}
+    .before-apply-card li::before{content:"";position:absolute;left:0;top:.8em;width:8px;height:2px;background:var(--orange)}
     .applicant-message{position:relative;isolation:isolate;overflow:hidden;margin-top:44px;padding:clamp(32px,5vw,60px);border:1px solid rgba(23,34,65,.12);border-radius:var(--radius);background:#172241;color:white;box-shadow:var(--shadow)}
     .applicant-message::before{content:"";position:absolute;z-index:0;inset:-12px;background:linear-gradient(90deg,rgba(16,29,60,.9) 0%,rgba(20,34,68,.78) 48%,rgba(24,40,78,.6) 100%),url("./assets/applicant-community-anonymized.png") center 46%/cover no-repeat;filter:blur(1.5px) saturate(.88);transform:scale(1.025)}
     .applicant-message::after{content:"";position:absolute;z-index:0;width:260px;height:260px;right:-105px;bottom:-150px;border:1px solid rgba(255,255,255,.14);border-radius:50%;box-shadow:0 0 0 42px rgba(255,255,255,.035),0 0 0 84px rgba(255,255,255,.025)}
@@ -264,20 +281,26 @@
     .selection-schedule-head{position:relative;display:grid;grid-template-columns:minmax(0,.8fr) minmax(420px,1.2fr);align-items:end;gap:60px;margin-bottom:42px}
     .selection-schedule-head h2{margin:14px 0 0;font-family:var(--serif);font-size:clamp(2.8rem,5.2vw,5rem);line-height:1.18}
     .selection-schedule-head p{max-width:620px;margin:0;color:var(--muted);font-size:15px}
-    .selection-stats{position:relative;display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:20px}
+    .selection-stats{position:relative;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin-bottom:20px}
     .selection-stat{min-height:176px;padding:27px 29px;border:1px solid var(--line);border-radius:24px;background:rgba(255,253,248,.9);box-shadow:0 14px 40px rgba(45,62,114,.07)}
     .selection-stat.is-highlight{border-color:rgba(65,105,232,.22);background:linear-gradient(140deg,#eef3ff 0%,#fffaf0 100%)}
     .selection-stat .label{display:block;margin-bottom:13px;color:var(--orange);font-size:11px;font-weight:900;letter-spacing:.14em}
     .selection-stat strong{display:block;font-family:var(--serif);font-size:clamp(1.55rem,2.4vw,2.25rem);line-height:1.35}
     .selection-stat small{display:block;margin-top:10px;color:var(--muted);font-size:13px;line-height:1.75}
-    .selection-flow{position:relative;display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:20px}
+    .selection-flow{position:relative;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin-top:20px}
     .selection-flow-card{position:relative;overflow:hidden;min-height:285px;padding:31px 30px;border-radius:25px;background:var(--ink);color:white;box-shadow:0 18px 45px rgba(23,34,65,.15)}
+    .selection-flow-card.has-qr{grid-column:1/-1;display:grid;grid-template-columns:minmax(0,1fr) 180px;align-items:center;gap:32px}
+    .selection-flow-copy{position:relative;z-index:1;min-width:0}
     .selection-flow-card::after{content:"";position:absolute;width:150px;height:150px;right:-85px;bottom:-90px;border:1px solid rgba(255,255,255,.12);border-radius:50%;box-shadow:0 0 0 30px rgba(255,255,255,.025)}
     .selection-flow-card:nth-child(2){background:#1e3269}
     .selection-flow-card:nth-child(3){background:#155c55}
     .selection-flow-card .step{display:block;margin-bottom:28px;color:var(--sun);font-family:Georgia,serif;font-size:12px;font-weight:700;font-style:italic;letter-spacing:.14em}
     .selection-flow-card h3{margin:0 0 17px;font-family:var(--serif);font-size:clamp(1.35rem,2vw,1.75rem)}
     .selection-flow-card p{margin:0;color:#dbe2f4;font-size:14px;line-height:2}
+    .selection-flow-card p+p{margin-top:14px}
+    .selection-qr{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;gap:10px;justify-self:end;width:fit-content;max-width:100%;margin:0}
+    .selection-qr img{width:180px;height:auto;max-width:100%;border-radius:12px;background:white}
+    .selection-qr figcaption{color:#dbe2f4;font-size:11px;line-height:1.8;text-align:center}
     .selection-contact{position:relative;margin:22px 0 0;padding:19px 22px 19px 62px;border:1px solid rgba(65,105,232,.13);border-radius:18px;background:rgba(255,255,255,.7);color:#59647c;font-size:13px;line-height:1.85}
     .selection-contact::before{content:"i";position:absolute;left:22px;top:20px;display:grid;place-items:center;width:24px;height:24px;border-radius:50%;background:var(--blue);color:white;font-family:Georgia,serif;font-weight:700;font-style:italic}
 
@@ -308,7 +331,8 @@
       .learning-card.featured{transform:none}
       .preseminar-head{grid-template-columns:1fr;gap:22px}
       .fit-statement{grid-template-columns:1fr}
-      .selection-schedule-head{grid-template-columns:1fr;gap:20px}.selection-stats{grid-template-columns:1fr 1fr}.selection-stat:last-child{grid-column:1/-1}.selection-flow{grid-template-columns:1fr}
+      .before-apply-grid{grid-template-columns:1fr}
+      .selection-schedule-head{grid-template-columns:1fr;gap:20px}.selection-flow{grid-template-columns:1fr}
     }
 
     @media(max-width:700px){
@@ -353,8 +377,13 @@
       .commitment-panel{padding:28px 20px}.commitment-grid{grid-template-columns:1fr}.commitment-card{padding:23px 20px}.commitment-warning{font-size:14px}
       .purity{padding:35px 22px}.formula{display:grid;gap:7px}.formula .op{font-size:1.25rem}.purity p{font-size:14px}
       .schedule{grid-template-columns:1fr}.schedule::before{display:none}.schedule-step{display:grid;grid-template-columns:58px 1fr;column-gap:15px;text-align:left}.step-num{grid-row:1/3;width:52px;height:52px;margin:0;border-width:6px}.schedule-step h4{align-self:end}.schedule-step p{grid-column:2}.applicant-message{padding:30px 22px}.applicant-message p{font-size:14px}
+      .before-apply{padding:30px 22px}.before-apply>h3{font-size:1.65rem}.before-apply-lead{font-size:14px}.before-apply-grid{gap:12px;margin-top:23px}.before-apply-card{padding:24px 21px}.before-apply-step{margin-bottom:12px}.before-apply-card h4{font-size:21px}
       .selection-schedule{padding:72px 0 78px}.selection-schedule-head{margin-bottom:30px}.selection-schedule-head h2{font-size:2.85rem}.selection-stats{grid-template-columns:1fr}.selection-stat:last-child{grid-column:auto}.selection-stat{min-height:0;padding:23px 21px}.selection-flow-card{min-height:0;padding:27px 23px}.selection-contact{padding:18px 18px 18px 55px}.selection-contact::before{left:18px}
       .footer-inner{align-items:flex-start;flex-direction:column}.footer-links{flex-wrap:wrap;gap:10px 16px}
+    }
+
+    @media(max-width:520px){
+      .selection-flow-card.has-qr{grid-template-columns:1fr;gap:24px}
     }
 
     @media(prefers-reduced-motion:reduce){
@@ -641,6 +670,38 @@
             <article class="schedule-step reveal is-visible"><span class="step-num">03</span><h4>説明・証明する</h4><p>面談や志望理由書で、自分の言葉と態度で説明する。本気度をどのように証明するか。</p></article>
           </div>
 
+          <div class="before-apply reveal is-visible" id="before-apply" role="region" aria-labelledby="before-apply-title">
+            <span class="eyebrow">BEFORE YOU APPLY / 応募までの事前活動</span>
+            <h3 id="before-apply-title">選抜では<span>「応募時点までの実績」</span>を重視します</h3>
+            <p class="before-apply-lead">志望純度は、選抜資料に書かれた言葉だけでは判断できません。そこで、<strong>応募時点までの行動</strong>と、<strong>面談・志望理由</strong>の両面から確認します。</p>
+
+            <div class="before-apply-grid">
+              <article class="before-apply-card">
+                <span class="before-apply-step">01 / What we see</span>
+                <h4>何を見るか</h4>
+                <ul>
+                  <li>栗原の担当科目の履修状況</li>
+                  <li>ゼミ見学・質問・相談などの学ぶ態度</li>
+                </ul>
+                <p>応募時点までに、どのような行動を積み重ねてきたかを確認します。<strong>実績は履歴としてデータ管理を行っています。</strong></p>
+              </article>
+
+              <article class="before-apply-card">
+                <span class="before-apply-step">02 / Why it matters</span>
+                <h4>なぜ見るか</h4>
+                <p>履修や質問などの実績は、<strong>学習内容への興味とゼミとの適合性、そして「学ぶ意欲」</strong>が行動として表れたものだからです。</p>
+                <p>十分な接触があった上で栗原ゼミを希望することは、<strong>志望純度を判断する明確な指標</strong>となります。</p>
+              </article>
+
+              <article class="before-apply-card is-open">
+                <span class="before-apply-step">03 / Open door</span>
+                <h4>実績がない場合</h4>
+                <p><strong>実績がある方が有利なのは事実です。</strong>ただし、実績の有無だけで排除することはありません。</p>
+                <p>面談でのやり取りや志望理由から志望純度を確認できれば、入ゼミは可能です。</p>
+              </article>
+            </div>
+          </div>
+
           <aside class="applicant-message reveal is-visible">
             <span class="message-kicker">TO EVERY APPLICANT</span>
             <h3>志望者の皆さんへ</h3>
@@ -660,7 +721,7 @@
               <span class="eyebrow">SELECTION SCHEDULE</span>
               <h2>選考スケジュール</h2>
             </div>
-            <p>栗原ゼミを知り、自分との適合性を考えたうえで、面談へ進む流れです。日程や申込方法の詳細は、授業内の説明とオープンチャットで案内します。</p>
+            <p>ゼミ見学や面談への参加は希望者のみです。参加するか否かは、自分の責任で判断してください。</p>
           </header>
 
           <div class="selection-stats reveal">
@@ -671,31 +732,33 @@
             </article>
             <article class="selection-stat">
               <span class="label">受け入れ</span>
-              <strong>8名 程度</strong>
+              <strong>定員8名</strong>
               <small>少人数・深い対話を重視</small>
-            </article>
-            <article class="selection-stat is-highlight">
-              <span class="label">12期（2026年4月）実績</span>
-              <strong>入ゼミ 12名</strong>
-              <small>目安倍率 約2倍（最終エントリーに至らなかった辞退者を含む）</small>
             </article>
           </div>
 
           <div class="selection-flow reveal">
-            <article class="selection-flow-card">
-              <span class="step">Step 01</span>
-              <h3>ゼミ説明と質問</h3>
-              <p>11月頃、財務会計論Ⅱの授業内で説明します。興味を持ったら、配布資料のQRからオープンチャットに登録してください。</p>
+            <article class="selection-flow-card has-qr">
+              <div class="selection-flow-copy">
+                <span class="step">Step 01</span>
+                <h3>ゼミ説明と質問</h3>
+                <p>財務会計論の授業内で基本的な説明をします。興味を持ったら、このQRコードから選考連絡用のオープンチャットに参加してください。</p>
+              </div>
+              <figure class="selection-qr">
+                <img src="assets/selection-openchat-qr.jpg" width="340" height="340" alt="選考連絡用オープンチャットに参加するためのQRコード" decoding="async">
+                <figcaption>選考連絡用オープンチャット</figcaption>
+              </figure>
             </article>
             <article class="selection-flow-card">
               <span class="step">Step 02</span>
               <h3>ゼミ見学と質問</h3>
-              <p>月曜の3・4限（4年）／5・6限（3年）。内容的には5・6限がより参考になります。先輩の様子もぜひ見に来てください。</p>
+              <p>月曜5・6限（3年）のゼミで、実際の活動に参加し、ゼミの雰囲気を体験してもらいます。</p>
+              <p>その後、希望者には先輩との面談の機会を設けます。</p>
             </article>
             <article class="selection-flow-card">
               <span class="step">Step 03</span>
-              <h3>個別面談</h3>
-              <p>エントリー希望者は予約制（先着）で面談します。対面・オンライン・集団形式のいずれかで、志望純度を確認します。</p>
+              <h3>先輩との面談</h3>
+              <p>先輩たちと面談し、ゼミの雰囲気や指導方針と自分が上手くマッチするか確認してください。</p>
             </article>
           </div>
 
